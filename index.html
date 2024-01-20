@@ -1,13 +1,109 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>computer-builder</title>
   </head>
-  <body>
-    <div id="app"></div>
+  <body class="max-w-2xl mx-auto">
+    <h1 class="text-lg text-gray-900">computer-builder</h1>
+    <!-- cpu -->
+    <div>
+      <h2 class="text-md text-gray-400">step1 cpu</h2>
+      <div>
+        <span>brand</span>
+        <select id="cpu-brand" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
+          <option value="">-</option>
+          <option value="Intel">Intel</option>
+          <option value="AMD">AMD</option>
+        </select>
+      </div>
+      <div>
+        <span>model</span>
+        <select id="cpu-model" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
+          <option value="">-</option>
+        </select>
+      </div>
+    </div>
+    <!-- gpu -->
+    <div>
+      <h2 class="text-md text-gray-400">step2 gpu</h2>
+      <div>
+        <span>brand</span>
+        <select id="gpu-brand" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
+          <option value="">-</option>
+        </select>
+      </div>
+      <div>
+        <span>model</span>
+        <select id="gpu-model" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
+          <option value="">-</option>
+        </select>
+      </div>
+    </div>
+    <!-- ram -->
+    <div>
+      <h2 class="text-md text-gray-400">step3 memory card</h2>
+      <div>
+        <span>how many</span>
+        <select id="ram-num" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
+          <option value="">-</option>
+        </select>
+      </div>
+      <div>
+        <span>brand</span>
+        <select id="ram-brand" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
+          <option value="">-</option>
+        </select>
+      </div>
+      <div>
+        <span>model</span>
+        <select id="ram-model" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
+          <option value="">-</option>
+        </select>
+      </div>
+    </div>
+    <!-- storage -->
+    <div>
+      <h2 class="text-md text-gray-400">step4 storage</h2>
+      <div>
+        <span>hdd/ssd</span>
+        <select
+          id="storage-type"
+          class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100"
+        >
+          <option value="">-</option>
+        </select>
+      </div>
+      <div>
+        <span>storage</span>
+        <select
+          id="storage-size"
+          class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100"
+        >
+          <option value="">-</option>
+        </select>
+      </div>
+      <div>
+        <span>brand</span>
+        <select
+          id="storage-brand"
+          class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100"
+        >
+          <option value="">-</option>
+        </select>
+      </div>
+      <div>
+        <span>model</span>
+        <select
+          id="storage-model"
+          class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100"
+        >
+          <option value="">-</option>
+        </select>
+      </div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
