@@ -7,6 +7,10 @@ export const config = {
   ramNum: document.querySelector<HTMLSelectElement>('#ram-num'),
   ramBrand: document.querySelector<HTMLSelectElement>('#ram-brand'),
   ramModel: document.querySelector<HTMLSelectElement>('#ram-model'),
+  storageType: document.querySelector<HTMLSelectElement>('#storage-type'),
+  storageSize: document.querySelector<HTMLSelectElement>('#storage-size'),
+  storageBrand: document.querySelector<HTMLSelectElement>('#storage-brand'),
+  storageModel: document.querySelector<HTMLSelectElement>('#storage-model'),
 }
 
 export interface CpuDataType {
