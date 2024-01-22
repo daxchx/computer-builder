@@ -1,5 +1,5 @@
 export const config = {
-  url: 'https://api.recursionist.io/builder/computers',
+  url: 'https://api.recursionist.io/builder/computers?type=',
   cpuBrand: document.querySelector<HTMLSelectElement>('#cpu-brand'),
   cpuModel: document.querySelector<HTMLSelectElement>('#cpu-model'),
   gpuBrand: document.querySelector<HTMLSelectElement>('#gpu-brand'),
