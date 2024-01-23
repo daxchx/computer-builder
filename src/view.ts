@@ -29,8 +29,17 @@ export default class View {
     config.gpuModel?.append(element)
   }
 
-  public generateRamNum(num: number): void {}
-  public generateRamBrand(brand: string): void {}
-  public generateStorageSize(size: string): void {}
-  public generateStorageBrand(brand: string): void {}
+  public generateRamNum(num: number): void {
+    let element = document.createElement('option')
+    element.value = num.toString()
+    element.innerText = num.toString()
+    config.ramNum?.append(element)
+  }
+
+  public generateRamBrand(brand: string): void {
+    let element = document.createElement('option')
+    element.value = brand
+    element.innerText = brand
+    config.ramBrand?.append(element)
+  }
 }
