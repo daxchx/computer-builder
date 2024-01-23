@@ -12,12 +12,3 @@ export const config = {
   storageBrand: document.querySelector<HTMLSelectElement>('#storage-brand'),
   storageModel: document.querySelector<HTMLSelectElement>('#storage-model'),
 }
-
-export interface CpuDataType {
-  Type: string
-  Part_Number: number
-  Brand: string
-  Model: string
-  Rank: number
-  Benchmark: number
-}
