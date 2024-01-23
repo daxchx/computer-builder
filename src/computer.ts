@@ -1,9 +1,17 @@
 export default class Computer {
-  private cpu: any | null = null
-  private gpu: any | null = null
-  private ram: any | null = null
-  private hdd: any | null = null
-  private ssd: any | null = null
+  public cpu: null
+  public gpu: null
+  public ram: null
+  public hdd: null
+  public ssd: null
+
+  constructor() {
+    this.cpu = null
+    this.gpu = null
+    this.ram = null
+    this.hdd = null
+    this.ssd = null
+  }
 
   public setCpu(data: any): void {
     this.cpu = data
