@@ -4,8 +4,8 @@ import FetchDataType from './type'
 import { config } from './config'
 
 export default class Controller {
-  computer: Computer
-  view: View
+  private computer: Computer
+  private view: View
 
   constructor() {
     this.computer = new Computer()
@@ -16,6 +16,10 @@ export default class Controller {
     let cpuData: FetchDataType[] | null = null
     let gpuData: FetchDataType[] | null = null
     let ramData: FetchDataType[] | null = null
+    let hddData: FetchDataType[] | null = null
+    let ssdData: FetchDataType[] | null = null
+
+    // data fetch
 
     fetch(config.url + 'cpu')
       .then((response) => response.json())
@@ -68,6 +72,20 @@ export default class Controller {
         }
       })
 
+    fetch(config.url + 'hdd')
+      .then((response) => response.json())
+      .then((data) => {
+        hddData = data
+      })
+
+    fetch(config.url + 'ssd')
+      .then((response) => response.json())
+      .then((data) => {
+        ssdData = data
+      })
+
+    // handle CPU
+
     config.cpuBrand?.addEventListener('change', () => {
       config.cpuModel!.innerHTML = `<option value="-">-</option>`
       for (let cpu of cpuData!) {
@@ -77,6 +95,16 @@ export default class Controller {
       }
     })
 
+    config.cpuModel?.addEventListener('change', () => {
+      for (let cpu of cpuData!) {
+        if (cpu.Model.indexOf(config.cpuModel!.value) !== -1) {
+          this.computer.setParts('cpu', cpu)
+        }
+      }
+    })
+
+    // handle GPU
+
     config.gpuBrand?.addEventListener('change', () => {
       config.gpuModel!.innerHTML = `<option value="-">-</option>`
       for (let gpu of gpuData!) {
@@ -85,6 +113,16 @@ export default class Controller {
         }
       }
     })
+
+    config.gpuModel?.addEventListener('change', () => {
+      for (let gpu of gpuData!) {
+        if (gpu.Model.indexOf(config.gpuModel!.value) !== -1) {
+          this.computer.setParts('gpu', gpu)
+        }
+      }
+    })
+
+    // handle RAM
 
     config.ramNum?.addEventListener('change', () => {
       config.ramBrand!.innerHTML = `<option value="-">-</option>`
@@ -111,33 +149,154 @@ export default class Controller {
       }
     })
 
-    // setModel
-
-    config.cpuModel?.addEventListener('change', () => {
-      for (let cpu of cpuData!) {
-        if (config.cpuModel?.value === cpu.Model) {
-          this.computer.setParts('cpu', cpu)
-          console.log('cpu: ' + this.computer.getBenchMark(this.computer.cpu))
-        }
-      }
-    })
-
-    config.gpuModel?.addEventListener('change', () => {
-      for (let gpu of gpuData!) {
-        if (config.gpuModel?.value === gpu.Model) {
-          this.computer.setParts('gpu', gpu)
-          console.log('gpu: ' + this.computer.getBenchMark(this.computer.gpu))
-        }
-      }
-    })
-
     config.ramModel?.addEventListener('change', () => {
       for (let ram of ramData!) {
-        if (config.ramModel?.value === ram.Model) {
+        if (ram.Model.indexOf(config.ramModel!.value) !== -1) {
           this.computer.setParts('ram', ram)
-          console.log('ram: ' + this.computer.getBenchMark(this.computer.ram))
         }
       }
+    })
+
+    // handle STORAGE
+
+    config.storageType?.addEventListener('change', () => {
+      config.storageSize!.innerHTML = `<option value="-">-</option>`
+      config.storageBrand!.innerHTML = `<option value="-">-</option>`
+      config.storageModel!.innerHTML = `<option value="-">-</option>`
+      let stringArr: string[] = []
+      if (config.storageType?.value == 'hdd') {
+        for (let hdd of hddData!) {
+          let hddString: string[] = []
+          let string = ''
+          let temp = ''
+          if (hdd.Model[hdd.Model.length - 1] === ')') {
+            let n = hdd.Model.indexOf('(')
+            temp = hdd.Model.slice(0, n - 1)
+          } else temp = hdd.Model
+          for (let i = temp.length - 1; i >= 0; i--) {
+            if (temp[i] !== ' ') {
+              hddString.push(temp[i])
+            } else {
+              let i = hddString.length - 1
+              while (i >= 0) {
+                string += hddString[i]
+                i--
+              }
+              if (stringArr.indexOf(string) === -1) {
+                stringArr.push(string)
+              }
+              break
+            }
+          }
+        }
+        stringArr.map((size) => {
+          this.view.generateElement(config.storageSize!, size)
+        })
+      } else if (config.storageType?.value == 'ssd') {
+        for (let ssd of ssdData!) {
+          let ssdString: string[] = []
+          let string = ''
+          let temp = ''
+          if (ssd.Model[ssd.Model.length - 1] === ')') {
+            let n = ssd.Model.indexOf('(')
+            temp = ssd.Model.slice(0, n - 1)
+          } else temp = ssd.Model
+          for (let i = temp.length - 1; i >= 0; i--) {
+            if (temp[i] !== ' ') {
+              ssdString.push(temp[i])
+            } else {
+              let i = ssdString.length - 1
+              while (i >= 0) {
+                string += ssdString[i]
+                i--
+              }
+              if (stringArr.indexOf(string) === -1) {
+                stringArr.push(string)
+              }
+              break
+            }
+          }
+        }
+        stringArr.map((size) => {
+          this.view.generateElement(config.storageSize!, size)
+        })
+      }
+    })
+
+    config.storageSize?.addEventListener('change', () => {
+      config.storageBrand!.innerHTML = `<option value="-">-</option>`
+      config.storageModel!.innerHTML = `<option value="-">-</option>`
+      if (config.storageType?.value == 'hdd') {
+        let hddBrandArr: string[] = []
+        for (let hdd of hddData!) {
+          if (hddBrandArr.indexOf(hdd.Brand) === -1) {
+            hddBrandArr.push(hdd.Brand)
+          }
+        }
+        for (let brand of hddBrandArr) {
+          this.view.generateElement(config.storageBrand!, brand)
+        }
+      } else if (config.storageType?.value == 'ssd') {
+        let ssdBrandArr: string[] = []
+        for (let ssd of ssdData!) {
+          if (ssdBrandArr.indexOf(ssd.Brand) === -1) {
+            ssdBrandArr.push(ssd.Brand)
+          }
+        }
+        for (let brand of ssdBrandArr) {
+          this.view.generateElement(config.storageBrand!, brand)
+        }
+      }
+    })
+
+    config.storageBrand?.addEventListener('change', () => {
+      config.storageModel!.innerHTML = `<option value="-">-</option>`
+      if (config.storageType?.value == 'hdd') {
+        for (let hdd of hddData!) {
+          if (
+            config.storageBrand?.value === hdd.Brand &&
+            hdd.Model.indexOf(config.storageSize!.value) !== -1
+          ) {
+            this.view.generateElement(config.storageModel!, hdd.Model)
+          }
+        }
+      } else if (config.storageType?.value == 'ssd') {
+        for (let ssd of ssdData!) {
+          if (
+            config.storageBrand?.value === ssd.Brand &&
+            ssd.Model.indexOf(config.storageSize!.value) !== -1
+          ) {
+            this.view.generateElement(config.storageModel!, ssd.Model)
+          }
+        }
+      }
+    })
+
+    config.storageModel?.addEventListener('change', () => {
+      if (config.storageType?.value == 'hdd') {
+        for (let hdd of hddData!) {
+          if (hdd.Model.indexOf(config.storageModel!.value) !== -1) {
+            this.computer.setParts('storage', hdd)
+          }
+        }
+      } else if (config.storageType?.value == 'ssd') {
+        for (let ssd of ssdData!) {
+          if (ssd.Model.indexOf(config.storageModel!.value) !== -1) {
+            this.computer.setParts('storage', ssd)
+          }
+        }
+      }
+    })
+
+    // build computer
+
+    config.buildButton?.addEventListener('click', () => {
+      if (this.computer.evalueteAllParts()) {
+        this.view.generateComputer(
+          this.computer.getScoreOfUseForGame(),
+          this.computer.getScoreOfUseForWork()
+        )
+      } else alert('入力できていない項目があります。')
     })
   }
 }
