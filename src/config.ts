@@ -11,4 +11,5 @@ export const config = {
   storageSize: document.querySelector<HTMLSelectElement>('#storage-size'),
   storageBrand: document.querySelector<HTMLSelectElement>('#storage-brand'),
   storageModel: document.querySelector<HTMLSelectElement>('#storage-model'),
+  buildButton: document.querySelector<HTMLButtonElement>('#build'),
 }
