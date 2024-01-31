@@ -89,6 +89,22 @@ export default class Computer {
     return result
   }
 
+  public getCpu(): CpuDataType {
+    return this.cpu
+  }
+
+  public getGpu(): CpuDataType {
+    return this.gpu
+  }
+
+  public getRam(): CpuDataType {
+    return this.ram
+  }
+
+  public getStorage(): StorageDataType {
+    return this.storage
+  }
+
   public getScoreOfUseForGame(): number {
     let cpuScore = this.cpu.benchmark! * 0.25
     let gpuScore = this.gpu.benchmark! * 0.6
