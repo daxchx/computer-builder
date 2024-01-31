@@ -7,8 +7,13 @@
   </head>
   <body class="max-w-2xl mx-auto">
     <h1 class="mt-10 mx-6 text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center">Computer Builder</h1>
+    <div class="relative mt-8">
+      <div class="w-6 h-full bg-gradient-to-r from-white to-transparent absolute left-0"></div>
+      <div class="w-6 h-full bg-gradient-to-l from-white to-transparent absolute right-0"></div>
+      <div id="computer" class="flex gap-x-4 px-6 overflow-x-scroll"></div>
+    </div>
     <div class="mt-8">
-      <h2 class="mx-6 text-md text-gray-400">CPU</h2>
+      <h2 class="mx-6 text-sm text-gray-400">CPU</h2>
       <div class="mx-6 border border-gray-200 rounded-lg overflow-hidden">
         <div class="flex items-center border-b border-gray-200">
           <label for="cpu-brand" class="flex items-center px-2 h-10 text-sm text-gray-400">brand</label>
@@ -25,7 +30,7 @@
       </div>
     </div>
     <div class="mt-8">
-      <h2 class="mx-6 text-md text-gray-400">GPU</h2>
+      <h2 class="mx-6 text-sm text-gray-400">GPU</h2>
       <div class="mx-6 border border-gray-200 rounded-lg overflow-hidden">
         <div class="flex items-center border-b border-gray-200">
           <label for="gpu-brand" class="flex items-center px-2 h-10 text-sm text-gray-400">brand</label>
@@ -42,7 +47,7 @@
       </div>
     </div>
     <div class="mt-8">
-      <h2 class="mx-6 text-md text-gray-400">memory card</h2>
+      <h2 class="mx-6 text-sm text-gray-400">memory card</h2>
       <div class="mx-6 border border-gray-200 rounded-lg overflow-hidden">
         <div class="flex items-center border-b border-gray-200">
           <label for="ram-num" class="flex items-center px-2 h-10 text-sm text-gray-400">how many</label>
@@ -65,7 +70,7 @@
       </div>
     </div>
     <div class="mt-8">
-      <h2 class="mx-6 text-md text-gray-400">storage</h2>
+      <h2 class="mx-6 text-sm text-gray-400">storage</h2>
       <div class="mx-6 border border-gray-200 rounded-lg overflow-hidden">
         <div class="flex items-center border-b border-gray-200">
           <label for="storage-type" class="flex items-center px-2 h-10 text-sm text-gray-400">type</label>
@@ -103,7 +108,6 @@
         build
       </button>
     </div>
-    <div id="computer"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
