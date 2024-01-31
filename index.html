@@ -8,18 +8,20 @@
   <body>
     <h1 class="text-lg text-gray-900">computer-builder</h1>
     <div>
-      <h2 class="text-md text-gray-400">CPU</h2>
-      <div>
-        <span>brand</span>
-        <select id="cpu-brand" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
-          <option value="">-</option>
-        </select>
-      </div>
-      <div>
-        <span>model</span>
-        <select id="cpu-model" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
-          <option value="">-</option>
-        </select>
+      <h2 class="mx-6 text-md text-gray-400">CPU</h2>
+      <div class="mx-6 border border-gray-200 rounded-lg overflow-hidden">
+        <div class="flex items-center border-b border-gray-200">
+          <label for="cpu-brand" class="flex items-center px-2 h-10">brand</label>
+          <select id="cpu-brand" class="flex-auto pr-2 py-2 rounded-lg">
+            <option value="">-</option>
+          </select>
+        </div>
+        <div class="flex items-center border-b border-gray-200">
+          <label for="cpu-brand" class="flex items-center px-2 h-10">model</label>
+          <select id="cpu-model" class="flex-auto pr-2 py-2 rounded-lg">
+            <option value="">-</option>
+          </select>
+        </div>
       </div>
     </div>
     <div>
@@ -62,10 +64,7 @@
       <h2 class="text-md text-gray-400">step4 storage</h2>
       <div>
         <span>hdd/ssd</span>
-        <select
-          id="storage-type"
-          class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100"
-        >
+        <select id="storage-type" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
           <option value="">-</option>
           <option value="hdd">HDD</option>
           <option value="ssd">SSD</option>
@@ -73,28 +72,19 @@
       </div>
       <div>
         <span>storage</span>
-        <select
-          id="storage-size"
-          class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100"
-        >
+        <select id="storage-size" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
           <option value="">-</option>
         </select>
       </div>
       <div>
         <span>brand</span>
-        <select
-          id="storage-brand"
-          class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100"
-        >
+        <select id="storage-brand" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
           <option value="">-</option>
         </select>
       </div>
       <div>
         <span>model</span>
-        <select
-          id="storage-model"
-          class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100"
-        >
+        <select id="storage-model" class="w-80 py-1 px-2 border border-gray-300 rounded-lg bg-gray-100">
           <option value="">-</option>
         </select>
       </div>
