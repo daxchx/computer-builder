@@ -253,19 +253,13 @@ export default class Controller {
       config.storageModel!.innerHTML = `<option value="-">-</option>`
       if (config.storageType?.value == 'hdd') {
         for (let hdd of hddData!) {
-          if (
-            config.storageBrand?.value === hdd.Brand &&
-            hdd.Model.indexOf(config.storageSize!.value) !== -1
-          ) {
+          if (config.storageBrand?.value === hdd.Brand && hdd.Model.indexOf(config.storageSize!.value) !== -1) {
             this.view.generateElement(config.storageModel!, hdd.Model)
           }
         }
       } else if (config.storageType?.value == 'ssd') {
         for (let ssd of ssdData!) {
-          if (
-            config.storageBrand?.value === ssd.Brand &&
-            ssd.Model.indexOf(config.storageSize!.value) !== -1
-          ) {
+          if (config.storageBrand?.value === ssd.Brand && ssd.Model.indexOf(config.storageSize!.value) !== -1) {
             this.view.generateElement(config.storageModel!, ssd.Model)
           }
         }
@@ -294,8 +288,16 @@ export default class Controller {
       if (this.computer.evalueteAllParts()) {
         this.view.generateComputer(
           this.computer.getScoreOfUseForGame(),
-          this.computer.getScoreOfUseForWork()
+          this.computer.getScoreOfUseForWork(),
+          this.computer.getCpu(),
+          this.computer.getGpu(),
+          this.computer.getRam(),
+          this.computer.getStorage()
         )
+        window.scroll({
+          top: 0,
+          behavior: 'smooth',
+        })
       } else alert('入力できていない項目があります。')
     })
   }
