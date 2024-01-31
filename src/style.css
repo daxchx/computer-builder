@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+select {
+  height: 40px;
+  padding: 6px 32px 6px 12px;
+  background-color: #fff;
+  background-image: url(/select-arrow.svg);
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 10px 10px;
+  appearance: none;
+  font-size: 14px;
+  color: #111;
+}
