@@ -46,6 +46,8 @@
 
 制御装置はデコーダとも呼ばれ、命令を解読し、他の周辺機器を制御します。演算装置は、加算機を含む、実際の計算を行う部分です。
 
+<img src="https://github.com/daxchx/computer-builder/blob/images/cpu.jpg" width="200" height="auto" />
+
 #### GPU
 
 #### RAM
