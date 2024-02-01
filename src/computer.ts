@@ -49,26 +49,22 @@ export default class Computer {
         this.cpu.brand = data.Brand
         this.cpu.model = data.Model
         this.cpu.benchmark = data.Benchmark
-        console.log(this.cpu)
         break
       case 'gpu':
         this.gpu.brand = data.Brand
         this.gpu.model = data.Model
         this.gpu.benchmark = data.Benchmark
-        console.log(this.gpu)
         break
       case 'ram':
         this.ram.brand = data.Brand
         this.ram.model = data.Model
         this.ram.benchmark = data.Benchmark
-        console.log(this.ram)
         break
       case 'storage':
         this.storage.type = data.Type
         this.storage.brand = data.Brand
         this.storage.model = data.Model
         this.storage.benchmark = data.Benchmark
-        console.log(this.storage)
     }
   }
 
