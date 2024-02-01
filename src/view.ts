@@ -8,7 +8,7 @@ export default class View {
 
   public generateComputer(gamingScore: number, workScore: number, cpuObject: any, gpuObject: any, ramObject: any, storageObject: any): void {
     document.querySelector<HTMLDivElement>('#computer')!.innerHTML += `
-    <div class="w-80 p-4 border border-gray-200 rounded-lg shrink-0 shadow-md">
+    <div class="w-80 p-4 border border-gray-200 rounded-lg shrink-0 shadow-sm">
       <div>
         <div class="text-xs text-gray-400">CPU</div>
         <div class="text-sm font-bold">${cpuObject.brand}</div>
