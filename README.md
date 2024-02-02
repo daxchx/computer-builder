@@ -176,7 +176,7 @@ SSDは一般的に軽量・省電力で、コンピュータやデバイスの�
 
 ## 技術スタック
 
-stack.jpg
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/263b3859-3122-48b3-9abb-cf0243f65e3b" alt="tech stack" width="400" />
 
 <table>
   <tr>
@@ -216,6 +216,8 @@ stack.jpg
 ## アクティビティ図
 
 ## ワイヤーフレーム
+
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/4ce6656a-e361-4cec-b040-8abe1d0f9240" alt="wire frame" width="400" />
 
 ## 作成の経緯
 
