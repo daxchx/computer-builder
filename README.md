@@ -1,20 +1,20 @@
 
 # Computer Builder
 
-🤩 パーツを選んで「仮想のコンピュータ」を組み立て、その性能を評価し比較するアプリケーション
+thumbnail.gif
 
 ## 説明
 
-組み立てたコンピュータは性能の評価を得ることができます。
+このアプリケーションではパーツを選んで「仮想のコンピュータ」を組み立て、その性能を評価し、比較することが可能です。
 
-評価は仕事用、ゲーム用の 2 種類が算出され、それぞれで使用した場合に 100%を基準として用途別の評価を算出します。
-
-コンピュータを構成する部品は以下になります。
-
+コンピュータを構成するパーツは全部で4種類。
 - cpu
 - gpu
 - memory
 - storage
+
+各パーツの選択時には、ブランド、モデル、ストレージなどを入力します。
+ブランドにはそのブランドが持っている情報をソートしてモデルに表示します。
 
 ## 使い方
 
@@ -79,52 +79,56 @@ RAM はコンピュータシステムのメインメモリとして使用され�
 - hdd ベンチマーク × 0.025
   を合計した数値を用います。
 
-## API を使用してパーツ情報を取得
 
-api url
-cpu url
-gpu url
-ram url
-hdd url
-ssd url
+***
 
-fetch 時に得られる JSON オブジェクト
-
-cpu
-type
-
-## 取得した情報を select element に適用
-
-cpu
-api を使用して cpu のデータを所得します。
-データ構造は
-type
-
-gpu
-api
-
-## 選択したデータに基づいて次のデータを表示
-
-fetch したデータは変数に保存していつでも使用しできるようにしておきます。
-
-データを選択すると保存したデータの中から、選択した値に関連するデータのみをソートします。
 
 ## 技術スタック
 
-- TypeScript
-- TailwindCSS
-- Vite
-- Vercel
-- Git
-- GitHub
+stack.jpg
+
+<table>
+  <tr>
+    <th>分類</th>
+    <th>スタック名</th>
+  </tr>
+  <tr>
+    <td>言語</td>
+    <td>TypeScript</td>
+  </tr>
+  </tr>
+  <tr>
+    <td>スタイル</td>
+    <td>TailwindCSS</td>
+  </tr>
+  </tr>
+  <tr>
+    <td>ビルドツール</td>
+    <td>Vite</td>
+  </tr>
+  </tr>
+  <tr>
+    <td>デプロイ</td>
+    <td>Vercel</td>
+  </tr>
+  <tr>
+    <td rowspan="2">その他</td>
+    <td>Git</td>
+  </tr>
+  <tr>
+    <td>GitHub</td>
+  </tr>
+</table>
+
+## クラス図
+
+## アクティビティ図
+
+## ワイヤーフレーム
 
 ## こだわった点
 
-- API の使用方法
-  データの取得には fetch を用いて非同期で
-  値を変更するたびに API を叩くと API が保持している情報の量によって遅延が発生する
-
-そのため、最初のレンダリング時に
+#### APIを使用して各パーツの情報を取得
 
 フェッチ API は、リクエストやレスポンスといったプロトコルを操作する要素にアクセスするための JavaScript インターフェイスです。グローバルの fetch() メソッドも提供しており、簡単で論理的な方法で、非同期にネットワーク越しでリソースを取得することができます。
 
@@ -132,23 +136,77 @@ fetch したデータは変数に保存していつでも使用しできるよ�
 
 基本的なフェッチリクエストは、以下のコードを見てください。
 
+例) cpuのデータ取得
 ```
-async function logMovies() {
-  const response = await fetch("http://example.com/movies.json");
-  const movies = await response.json();
-  console.log(movies);
-}
-
-const data = fetch(url).then(response => response.json()).then(() => console.log(data))
+const cpuData = fetch(url)
+  .then(response => response.json())
+  .then((data) => {
+    console.log(data)
+  })
 ```
 
 これはネットワーク越しに JSON ファイルを取得してパースし、コンソールにデータを出力するスクリプトです。 fetch() の最も簡単な使い方は 1 つの引数 — fetch で取得したいリソースへのパス — のみをとり、 Response オブジェクトで解決するプロミスを返します。
 
 Response は、実際の JSON レスポンス本体を直接持っているのではなく、 HTTP レスポンス全体を表現するものです。 Response オブジェクトから JSON の本体の内容を抽出するには、 json() メソッドを使用します。これはレスポンス本体のテキストを JSON として解釈した結果で解決する第 2 のプロミスを返します。
 
-- MVC アーキテクチャ
-- UI
-- オブジェクト指向プログラミング
+#### MVC アーキテクチャ
+
+互いのコンピュータオブジェクトがviewに直接干渉しないように設定しています。
+
+#### UI
+
+各パーツの選択がスムーズに行えるようにセレクトボタンのサイズを大きく設定しました。
+
+また、組み立てたコンピュータの比較が簡単にできるように横スクロールを用いました。
+これにより、簡単に性能の比較ができるようになりました。
+
+この横スクロールは、下記のコードで実現しています。
+
+TailwindCSS
+```
+<div class="overflow-x-scroll">
+  <div></div> // 組み立てたコンピュータのelement
+</div>
+```
+
+#### TypeScript interfaceの拡張
+
+コンピュータが持っているデータはCPU, GPU, RAMは同一の型ですが、Storageのみtypeというデータが一つ多くなっています。
+
+CPU, GPU, RAM
+```
+brand: brandName
+model: modelName
+```
+
+Storage
+```
+type: storageType
+brand: brandName
+model: modelName
+```
+
+そこで、Partsという継承元の方を作成して
+各パーツでPartsの型を継承しました。
+
+パーツ
+```
+interface Parts {
+  brand: string
+  model: string
+}
+
+interface Storage extends Parts {
+  type: string
+}
+```
+
+これにより、型の指定がうまくできました。
+データを安全に操作することができました。
+
+オブジェクト指向プログラミング
+
+
 
 ## 参考文献
 
