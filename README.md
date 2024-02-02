@@ -217,7 +217,7 @@ SSDは一般的に軽量・省電力で、コンピュータやデバイスの�
 
 ## ワイヤーフレーム
 
-<img src="https://github.com/daxchx/computer-builder/assets/149696768/4ce6656a-e361-4cec-b040-8abe1d0f9240" alt="wire frame" width="400" />
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/50bad962-b25d-47c2-976a-a31d11e44914" alt="" />
 
 ## 作成の経緯
 
