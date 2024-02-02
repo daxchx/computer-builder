@@ -20,6 +20,9 @@ thumbnail.gif
 
 1. URL にアクセス
 2. CPU のブランドとモデルを選択
+
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/fe3a204a-61ca-4241-b9a9-406c080e26d0" width="400" />
+
 3. GPU のブランドとモデルを選択
 4. Memory Card の数とブランドとモデルを選択
 5. Storage のタイプとストレージとブランドとモデルを選択
@@ -213,6 +216,15 @@ stack.jpg
 ## アクティビティ図
 
 ## ワイヤーフレーム
+
+## 作成の経緯
+
+以下の項目の理解を深めるために行いました。
+
+- API
+- TypeScript
+- OOP
+- MVC
 
 ## こだわった点
 
