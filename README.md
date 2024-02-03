@@ -18,20 +18,37 @@ thumbnail.gif
 
 ## 使い方
 
-1. URL にアクセス
-2. CPU のブランドとモデルを選択
+#### URL にアクセス
+
+https://computer-builder-beta.vercel.app/
+
+#### CPU のブランドとモデルを選択
 
 <img src="https://github.com/daxchx/computer-builder/assets/149696768/fe3a204a-61ca-4241-b9a9-406c080e26d0" width="400" />
 
-3. GPU のブランドとモデルを選択
-4. Memory Card の数とブランドとモデルを選択
-5. Storage のタイプとストレージとブランドとモデルを選択
-6. 「build」ボタンを押すと、選択したパーツからコンピュータを組み立てます。
-7. 組み立てられたコンピュータの評価を確認
+#### GPU のブランドとモデルを選択
+
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/ff4ee867-ab7a-4e11-b42a-3328a397681e" width="400" />
+
+#### Memory Card の数とブランドとモデルを選択
+
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/ab81fa8b-b1e3-4c45-a723-a112a16575f6" width="400" />
+
+#### Storage のタイプとストレージとブランドとモデルを選択
+
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/a9873a5b-3e4b-40fe-aba2-06330eab62e7" width="400" />
+
+#### 「build」ボタンを押すと、選択したパーツからコンピュータを組み立てます。
+
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/e1743ee5-99dd-40d7-b1b1-360df916b48d" width="400" />
+
+#### 組み立てられたコンピュータの評価を確認
+
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/a4ab12fb-c425-4a90-9979-888868489f25" width="400" />
 
 ## 使用時の注意事項
 
-#### 選択は上から順に行う
+#### ①選択は上から順に行う
 
 各パーツの選択時には、上から順番に選択しましょう。
 
@@ -39,10 +56,14 @@ cpu, gpuの選択順
 1. brand
 2. model
 
-ramの選択順
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/af898f26-751a-4905-a1d8-197a0945ebac" />
+
+memory cardの選択順
 1. how many
 2. brand
 3. model
+
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/8dda8cd0-fb38-4176-9775-f6b7613ee73b" />
 
 storageの選択順
 1. type
@@ -50,13 +71,17 @@ storageの選択順
 3. brand
 4. model
 
-#### 選択肢が存在しないこともある
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/f2c89c41-79e6-4e97-83a8-8bea88404542" />
+
+#### ②選択肢が存在しないこともある
 
 順番を守って選択していても選択肢が表示されないことがあります。
 
 これは、選択した条件に当てはまるものが存在しない場合に起こります。
 
 上の選択肢を変更してみて下さい。
+
+<img src="https://github.com/daxchx/computer-builder/assets/149696768/f81c808b-132d-4250-b1e3-55452df4843c" />
 
 ## 各パーツの説明
 
@@ -234,7 +259,33 @@ SSDは一般的に軽量・省電力で、コンピュータやデバイスの�
 
 #### APIを使用して各パーツの情報を取得
 
-各APIは上位100までのパーツ場を保持しています。
+<table>
+  <tr>
+    <th>パーツ</th>
+    <th>API</th>
+  </tr>
+  <tr>
+    <td>CPU</td>
+    <td>API</td>
+  </tr>
+  <tr>
+    <td>GPU</td>
+    <td>API</td>
+  </tr>
+  <tr>
+    <td>RAM</td>
+    <td>API</td>
+  </tr>
+  <tr>
+    <td>HDD</td>
+    <td>API</td>
+  </tr>
+  <tr>
+    <td>SSD</td>
+    <td>API</td>
+  </tr>
+</table>
+上記の各APIは上位100までのパーツ情報を保持しています。
 
 APIから取得したデータを取得することで、簡単に膨大なデータを取得することができました。
 
