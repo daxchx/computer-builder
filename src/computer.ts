@@ -1,22 +1,11 @@
-import FetchDataType from './type'
-
-interface CpuDataType {
-  brand: string | null
-  model: string | null
-  benchmark: number | null
-}
-
-interface StorageDataType {
-  type: string | null
-  brand: string | null
-  model: string | null
-  benchmark: number | null
-}
+import { FetchDataType } from './interface'
+import { Parts } from './interface'
+import { StorageDataType } from './interface'
 
 export default class Computer {
-  private cpu: CpuDataType
-  private gpu: CpuDataType
-  private ram: CpuDataType
+  private cpu: Parts
+  private gpu: Parts
+  private ram: Parts
   private storage: StorageDataType
 
   constructor() {
@@ -43,6 +32,12 @@ export default class Computer {
     }
   }
 
+  /**
+   * パーツをコンピュータにセットする
+   * @param {string} parts - パーツ
+   * @param {FetchDataType} data - fetchしたパーツのデータ
+   * @returns {void}
+   */
   public setParts(parts: string, data: FetchDataType): void {
     switch (parts) {
       case 'cpu':
@@ -68,16 +63,20 @@ export default class Computer {
     }
   }
 
-  public evalueteAllParts(): boolean {
+  /**
+   * パーツがすべてセットされているかチェックする
+   * @returns {boolean}
+   */
+  public checkAllParts(): boolean {
     let result = true
     for (let data in this.cpu) {
-      if (this.cpu[data as keyof CpuDataType] == null) result = false
+      if (this.cpu[data as keyof Parts] == null) result = false
     }
     for (let data in this.gpu) {
-      if (this.gpu[data as keyof CpuDataType] == null) result = false
+      if (this.gpu[data as keyof Parts] == null) result = false
     }
     for (let data in this.ram) {
-      if (this.ram[data as keyof CpuDataType] == null) result = false
+      if (this.ram[data as keyof Parts] == null) result = false
     }
     for (let data in this.storage) {
       if (this.storage[data as keyof StorageDataType] == null) result = false
@@ -85,22 +84,42 @@ export default class Computer {
     return result
   }
 
-  public getCpu(): CpuDataType {
+  /**
+   * cpuのデータを取得する
+   * @returns {Parts}
+   */
+  public getCpu(): Parts {
     return this.cpu
   }
 
-  public getGpu(): CpuDataType {
+  /**
+   * gpuのデータを取得する
+   * @returns {Parts}
+   */
+  public getGpu(): Parts {
     return this.gpu
   }
 
-  public getRam(): CpuDataType {
+  /**
+   * ramのデータを取得する
+   * @returns {Parts}
+   */
+  public getRam(): Parts {
     return this.ram
   }
 
+  /**
+   * storageのデータを取得する
+   * @returns {Parts}
+   */
   public getStorage(): StorageDataType {
     return this.storage
   }
 
+  /**
+   * ゲーミング用として使う場合の評価を計算
+   * @returns {number}
+   */
   public getScoreOfUseForGame(): number {
     let cpuScore = this.cpu.benchmark! * 0.25
     let gpuScore = this.gpu.benchmark! * 0.6
@@ -110,6 +129,10 @@ export default class Computer {
     return Math.floor(cpuScore + gpuScore + ramScore + storageScore)
   }
 
+  /**
+   * 作業用として使う場合の評価を計算
+   * @returns {number}
+   */
   public getScoreOfUseForWork(): number {
     let cpuScore = this.cpu.benchmark! * 0.6
     let gpuScore = this.gpu.benchmark! * 0.25
