@@ -1,8 +1,6 @@
 
 # Computer Builder
 
-thumbnail.gif
-
 ## 概要
 
 このアプリケーションではパーツを選んで「仮想のコンピュータ」を組み立て、その性能を評価し、比較することが可能です。
@@ -262,27 +260,27 @@ SSDは一般的に軽量・省電力で、コンピュータやデバイスの�
 <table>
   <tr>
     <th>パーツ</th>
-    <th>API</th>
+    <th>リクエスト先</th>
   </tr>
   <tr>
     <td>CPU</td>
-    <td>API</td>
+    <td>https://api.recursionist.io/builder/computers?type=cpu</td>
   </tr>
   <tr>
     <td>GPU</td>
-    <td>API</td>
+    <td>https://api.recursionist.io/builder/computers?type=gpu</td>
   </tr>
   <tr>
     <td>RAM</td>
-    <td>API</td>
+    <td>https://api.recursionist.io/builder/computers?type=ram</td>
   </tr>
   <tr>
     <td>HDD</td>
-    <td>API</td>
+    <td>https://api.recursionist.io/builder/computers?type=hdd</td>
   </tr>
   <tr>
     <td>SSD</td>
-    <td>API</td>
+    <td>https://api.recursionist.io/builder/computers?type=ssd</td>
   </tr>
 </table>
 上記の各APIは上位100までのパーツ情報を保持しています。
@@ -324,6 +322,7 @@ const cpuData = fetch(url)
 </table>
 
 Controllerでmodelとviewのインスタンスを作成して、modelとviewの操作を行いました。
+
 各要素が互いに影響しにくく、システムの保守性や生産性を向上させるために採用しました。
 
 #### UI
@@ -342,7 +341,7 @@ TailwindCSS
 
 #### OOP interfaceの拡張
 
-コンピュータが持っているデータはCPU, GPU, RAMは同一の型ですが、Storageのみtypeというデータが一つ多い状態になっています。
+コンピュータが持っているデータはCPU, GPU, RAMは同一の型ですが、StorageのみHDDかSSDかを区別するためにtypeというデータをもっています。
 
 CPU, GPU, RAM
 ```
