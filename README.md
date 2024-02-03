@@ -36,13 +36,19 @@ thumbnail.gif
 各パーツの選択時には、上から順番に選択しましょう。
 
 cpu, gpuの選択順
-brand → model
+1. brand
+2. model
 
 ramの選択順
-how many → brand → model
+1. how many
+2. brand
+3. model
 
 storageの選択順
-type → storage → brand → model
+1. type
+2. storage
+3. brand
+4. model
 
 #### 選択肢が存在しないこともある
 
@@ -211,10 +217,6 @@ SSDは一般的に軽量・省電力で、コンピュータやデバイスの�
   </tr>
 </table>
 
-## クラス図
-
-## アクティビティ図
-
 ## ワイヤーフレーム
 
 <img src="https://github.com/daxchx/computer-builder/assets/149696768/50bad962-b25d-47c2-976a-a31d11e44914" alt="" />
@@ -232,34 +234,50 @@ SSDは一般的に軽量・省電力で、コンピュータやデバイスの�
 
 #### APIを使用して各パーツの情報を取得
 
-フェッチ API は、リクエストやレスポンスといったプロトコルを操作する要素にアクセスするための JavaScript インターフェイスです。グローバルの fetch() メソッドも提供しており、簡単で論理的な方法で、非同期にネットワーク越しでリソースを取得することができます。
+各APIは上位100までのパーツ場を保持しています。
 
-コールバックベースの API である XMLHttpRequest とは異なり、Fetch は Promise ベースであり、サービスワーカー で簡単に使用できる優れた代替手段を提供します。Fetch は、CORS やその他の HTTP 拡張機能などの高度な HTTP 概念も統合します。
+APIから取得したデータを取得することで、簡単に膨大なデータを取得することができました。
 
-基本的なフェッチリクエストは、以下のコードを見てください。
+APIからデータを取得する際、以下のように行いました。
 
 例) cpuのデータ取得
 ```
 const cpuData = fetch(url)
   .then(response => response.json())
   .then((data) => {
-    console.log(data)
+    for(let cpu of data){
+      console.log(cpu)
+    }
   })
 ```
 
-これはネットワーク越しに JSON ファイルを取得してパースし、コンソールにデータを出力するスクリプトです。 fetch() の最も簡単な使い方は 1 つの引数 — fetch で取得したいリソースへのパス — のみをとり、 Response オブジェクトで解決するプロミスを返します。
-
-Response は、実際の JSON レスポンス本体を直接持っているのではなく、 HTTP レスポンス全体を表現するものです。 Response オブジェクトから JSON の本体の内容を抽出するには、 json() メソッドを使用します。これはレスポンス本体のテキストを JSON として解釈した結果で解決する第 2 のプロミスを返します。
-
 #### MVC アーキテクチャ
 
-互いのコンピュータオブジェクトがviewに直接干渉しないように設定しています。
+<table>
+  <tr>
+    <th>分類</th>
+    <th>クラス</th>
+  </tr>
+  <tr>
+    <td>Model</td>
+    <td>Computer</td>
+  </tr>
+  <tr>
+    <td>View</td>
+    <td>View</td>
+  </tr>
+  <tr>
+    <td>Controller</td>
+    <td>Controller</td>
+  </tr>
+</table>
+
+Controllerでmodelとviewのインスタンスを作成して、modelとviewの操作を行いました。
+各要素が互いに影響しにくく、システムの保守性や生産性を向上させるために採用しました。
 
 #### UI
 
-各パーツの選択がスムーズに行えるようにセレクトボタンのサイズを大きく設定しました。
-
-また、組み立てたコンピュータの比較が簡単にできるように横スクロールを用いました。
+組み立てたコンピュータの比較が簡単にできるように横スクロールを用いました。
 これにより、簡単に性能の比較ができるようになりました。
 
 この横スクロールは、下記のコードで実現しています。
@@ -271,9 +289,9 @@ TailwindCSS
 </div>
 ```
 
-#### TypeScript interfaceの拡張
+#### OOP interfaceの拡張
 
-コンピュータが持っているデータはCPU, GPU, RAMは同一の型ですが、Storageのみtypeというデータが一つ多くなっています。
+コンピュータが持っているデータはCPU, GPU, RAMは同一の型ですが、Storageのみtypeというデータが一つ多い状態になっています。
 
 CPU, GPU, RAM
 ```
@@ -288,8 +306,8 @@ brand: brandName
 model: modelName
 ```
 
-そこで、Partsという継承元の方を作成して
-各パーツでPartsの型を継承しました。
+そこで、Partsという継承元のinterfaceを作成して
+各パーツでPartsのinterfaceを継承しました。
 
 パーツ
 ```
@@ -303,12 +321,7 @@ interface Storage extends Parts {
 }
 ```
 
-これにより、型の指定がうまくできました。
-データを安全に操作することができました。
-
-オブジェクト指向プログラミング
-
-
+これにより、データを安全に操作することができました。
 
 ## 参考文献
 
