@@ -1,6 +1,6 @@
 import Computer from './computer'
 import View from './view'
-import FetchDataType from './type'
+import { FetchDataType } from './interface'
 import { config } from './config'
 
 export default class Controller {
@@ -285,7 +285,7 @@ export default class Controller {
     // build computer
 
     config.buildButton?.addEventListener('click', () => {
-      if (this.computer.evalueteAllParts()) {
+      if (this.computer.checkAllParts()) {
         this.view.generateComputer(
           this.computer.getScoreOfUseForGame(),
           this.computer.getScoreOfUseForWork(),
