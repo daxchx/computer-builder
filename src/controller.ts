@@ -12,7 +12,23 @@ export default class Controller {
     this.view = new View()
   }
 
+  public loading(): void {
+    this.view.renderLoading()
+    setTimeout(() => {
+      const loading = document.querySelector<HTMLDivElement>('#loading')
+      loading?.classList.remove('scale-x-0')
+      loading?.classList.add('scale-x-100')
+    }, 500)
+
+    setTimeout(() => {
+      this.init()
+    }, 2500)
+  }
+
+  next() {}
+
   public init(): void {
+    this.view.renderInit()
     let cpuData: FetchDataType[] | null = null
     let gpuData: FetchDataType[] | null = null
     let ramData: FetchDataType[] | null = null
@@ -32,7 +48,7 @@ export default class Controller {
           }
         }
         for (let brand of brandArr) {
-          this.view.generateElement(config.cpuBrand!, brand)
+          this.view.generateElement(document.querySelector<HTMLSelectElement>('#cpu-brand')!, brand)
         }
       })
 
@@ -47,7 +63,7 @@ export default class Controller {
           }
         }
         for (let brand of brandArr) {
-          this.view.generateElement(config.gpuBrand!, brand)
+          this.view.generateElement(document.querySelector<HTMLSelectElement>('#gpu-brand')!, brand)
         }
       })
 
@@ -68,7 +84,7 @@ export default class Controller {
         }
         ramNumArr.sort((a, b) => (a < b ? -1 : 1))
         for (let num of ramNumArr) {
-          this.view.generateElement(config.ramNum!, num.toString())
+          this.view.generateElement(document.querySelector<HTMLSelectElement>('#ram-num')!, num.toString())
         }
       })
 
@@ -86,37 +102,50 @@ export default class Controller {
 
     // handle CPU
 
-    config.cpuBrand?.addEventListener('change', () => {
-      config.cpuModel!.innerHTML = `<option value="-">-</option>`
+    document.querySelector<HTMLSelectElement>('#cpu-brand')?.addEventListener('change', () => {
+      document.querySelector<HTMLSelectElement>('#cpu-model')!.innerHTML = `<option value="-">-</option>`
       for (let cpu of cpuData!) {
-        if (config.cpuBrand?.value === cpu.Brand) {
-          this.view.generateElement(config.cpuModel!, cpu.Model)
+        if (document.querySelector<HTMLSelectElement>('#cpu-brand')?.value === cpu.Brand) {
+          this.view.generateElement(document.querySelector<HTMLSelectElement>('#cpu-model')!, cpu.Model)
         }
       }
     })
 
-    config.cpuModel?.addEventListener('change', () => {
+    document.querySelector<HTMLSelectElement>('#cpu-model')?.addEventListener('change', () => {
       for (let cpu of cpuData!) {
-        if (cpu.Model.indexOf(config.cpuModel!.value) !== -1) {
+        if (cpu.Model.indexOf(document.querySelector<HTMLSelectElement>('#cpu-model')!.value) !== -1) {
           this.computer.setParts('cpu', cpu)
         }
+      }
+
+      if (document.querySelector<HTMLSelectElement>('#cpu-model')!.value == '-') {
+        this.computer.setParts('cpu', null)
+        console.log('null')
+      }
+
+      if (document.querySelector<HTMLSelectElement>('#cpu-model')?.value !== '-') {
+        document.querySelector<HTMLSelectElement>('#cpu-brand')?.classList.remove('font-normal')
+        document.querySelector<HTMLSelectElement>('#cpu-brand')?.classList.add('font-bold')
+      } else {
+        document.querySelector<HTMLSelectElement>('#cpu-brand')?.classList.remove('font-bold')
+        document.querySelector<HTMLSelectElement>('#cpu-brand')?.classList.add('font-normal')
       }
     })
 
     // handle GPU
 
-    config.gpuBrand?.addEventListener('change', () => {
-      config.gpuModel!.innerHTML = `<option value="-">-</option>`
+    document.querySelector<HTMLSelectElement>('#gpu-brand')?.addEventListener('change', () => {
+      document.querySelector<HTMLSelectElement>('#gpu-model')!.innerHTML = `<option value="-">-</option>`
       for (let gpu of gpuData!) {
-        if (config.gpuBrand?.value === gpu.Brand) {
-          this.view.generateElement(config.gpuModel!, gpu.Model)
+        if (document.querySelector<HTMLSelectElement>('#gpu-brand')?.value === gpu.Brand) {
+          this.view.generateElement(document.querySelector<HTMLSelectElement>('#gpu-model')!, gpu.Model)
         }
       }
     })
 
-    config.gpuModel?.addEventListener('change', () => {
+    document.querySelector<HTMLSelectElement>('#gpu-model')?.addEventListener('change', () => {
       for (let gpu of gpuData!) {
-        if (gpu.Model.indexOf(config.gpuModel!.value) !== -1) {
+        if (gpu.Model.indexOf(document.querySelector<HTMLSelectElement>('#gpu-model')!.value) !== -1) {
           this.computer.setParts('gpu', gpu)
         }
       }
@@ -124,9 +153,9 @@ export default class Controller {
 
     // handle RAM
 
-    config.ramNum?.addEventListener('change', () => {
-      config.ramBrand!.innerHTML = `<option value="-">-</option>`
-      config.ramModel!.innerHTML = `<option value="-">-</option>`
+    document.querySelector<HTMLSelectElement>('#ram-num')?.addEventListener('change', () => {
+      document.querySelector<HTMLSelectElement>('#ram-brand')!.innerHTML = `<option value="-">-</option>`
+      document.querySelector<HTMLSelectElement>('#ram-model')!.innerHTML = `<option value="-">-</option>`
       let ramBrand: string[] = []
       for (let ram of ramData!) {
         if (ramBrand.indexOf(ram.Brand) === -1) {
@@ -134,24 +163,24 @@ export default class Controller {
         }
       }
       for (let brand of ramBrand) {
-        this.view.generateElement(config.ramBrand!, brand)
+        this.view.generateElement(document.querySelector<HTMLSelectElement>('#ram-brand')!, brand)
       }
     })
 
-    config.ramBrand?.addEventListener('change', () => {
-      config.ramModel!.innerHTML = `<option value="-">-</option>`
+    document.querySelector<HTMLSelectElement>('#ram-brand')?.addEventListener('change', () => {
+      document.querySelector<HTMLSelectElement>('#ram-model')!.innerHTML = `<option value="-">-</option>`
       for (let ram of ramData!) {
-        if (config.ramBrand?.value == ram.Brand) {
-          if (config.ramNum?.value == findEmptyString(ram)) {
-            this.view.generateElement(config.ramModel!, ram.Model)
+        if (document.querySelector<HTMLSelectElement>('#ram-brand')?.value == ram.Brand) {
+          if (document.querySelector<HTMLSelectElement>('#ram-num')?.value == findEmptyString(ram)) {
+            this.view.generateElement(document.querySelector<HTMLSelectElement>('#ram-model')!, ram.Model)
           }
         }
       }
     })
 
-    config.ramModel?.addEventListener('change', () => {
+    document.querySelector<HTMLSelectElement>('#ram-model')?.addEventListener('change', () => {
       for (let ram of ramData!) {
-        if (ram.Model.indexOf(config.ramModel!.value) !== -1) {
+        if (ram.Model.indexOf(document.querySelector<HTMLSelectElement>('#ram-model')!.value) !== -1) {
           this.computer.setParts('ram', ram)
         }
       }
@@ -159,12 +188,12 @@ export default class Controller {
 
     // handle STORAGE
 
-    config.storageType?.addEventListener('change', () => {
-      config.storageSize!.innerHTML = `<option value="-">-</option>`
-      config.storageBrand!.innerHTML = `<option value="-">-</option>`
-      config.storageModel!.innerHTML = `<option value="-">-</option>`
+    document.querySelector<HTMLSelectElement>('#storage-type')?.addEventListener('change', () => {
+      document.querySelector<HTMLSelectElement>('#storage-size')!.innerHTML = `<option value="-">-</option>`
+      document.querySelector<HTMLSelectElement>('#storage-brand')!.innerHTML = `<option value="-">-</option>`
+      document.querySelector<HTMLSelectElement>('#storage-model')!.innerHTML = `<option value="-">-</option>`
       let stringArr: string[] = []
-      if (config.storageType?.value == 'hdd') {
+      if (document.querySelector<HTMLSelectElement>('#storage-type')?.value == 'hdd') {
         for (let hdd of hddData!) {
           let hddString: string[] = []
           let string = ''
@@ -190,9 +219,9 @@ export default class Controller {
           }
         }
         stringArr.map((size) => {
-          this.view.generateElement(config.storageSize!, size)
+          this.view.generateElement(document.querySelector<HTMLSelectElement>('#storage-size')!, size)
         })
-      } else if (config.storageType?.value == 'ssd') {
+      } else if (document.querySelector<HTMLSelectElement>('#storage-type')?.value == 'ssd') {
         for (let ssd of ssdData!) {
           let ssdString: string[] = []
           let string = ''
@@ -218,15 +247,15 @@ export default class Controller {
           }
         }
         stringArr.map((size) => {
-          this.view.generateElement(config.storageSize!, size)
+          this.view.generateElement(document.querySelector<HTMLSelectElement>('#storage-size')!, size)
         })
       }
     })
 
-    config.storageSize?.addEventListener('change', () => {
-      config.storageBrand!.innerHTML = `<option value="-">-</option>`
-      config.storageModel!.innerHTML = `<option value="-">-</option>`
-      if (config.storageType?.value == 'hdd') {
+    document.querySelector<HTMLSelectElement>('#storage-size')?.addEventListener('change', () => {
+      document.querySelector<HTMLSelectElement>('#storage-brand')!.innerHTML = `<option value="-">-</option>`
+      document.querySelector<HTMLSelectElement>('#storage-model')!.innerHTML = `<option value="-">-</option>`
+      if (document.querySelector<HTMLSelectElement>('#storage-type')?.value == 'hdd') {
         let hddBrandArr: string[] = []
         for (let hdd of hddData!) {
           if (hddBrandArr.indexOf(hdd.Brand) === -1) {
@@ -234,9 +263,9 @@ export default class Controller {
           }
         }
         for (let brand of hddBrandArr) {
-          this.view.generateElement(config.storageBrand!, brand)
+          this.view.generateElement(document.querySelector<HTMLSelectElement>('#storage-brand')!, brand)
         }
-      } else if (config.storageType?.value == 'ssd') {
+      } else if (document.querySelector<HTMLSelectElement>('#storage-type')?.value == 'ssd') {
         let ssdBrandArr: string[] = []
         for (let ssd of ssdData!) {
           if (ssdBrandArr.indexOf(ssd.Brand) === -1) {
@@ -244,38 +273,38 @@ export default class Controller {
           }
         }
         for (let brand of ssdBrandArr) {
-          this.view.generateElement(config.storageBrand!, brand)
+          this.view.generateElement(document.querySelector<HTMLSelectElement>('#storage-brand')!, brand)
         }
       }
     })
 
-    config.storageBrand?.addEventListener('change', () => {
-      config.storageModel!.innerHTML = `<option value="-">-</option>`
-      if (config.storageType?.value == 'hdd') {
+    document.querySelector<HTMLSelectElement>('#storage-brand')?.addEventListener('change', () => {
+      document.querySelector<HTMLSelectElement>('#storage-model')!.innerHTML = `<option value="-">-</option>`
+      if (document.querySelector<HTMLSelectElement>('#storage-type')?.value == 'hdd') {
         for (let hdd of hddData!) {
-          if (config.storageBrand?.value === hdd.Brand && hdd.Model.indexOf(config.storageSize!.value) !== -1) {
-            this.view.generateElement(config.storageModel!, hdd.Model)
+          if (document.querySelector<HTMLSelectElement>('#storage-brand')?.value === hdd.Brand && hdd.Model.indexOf(document.querySelector<HTMLSelectElement>('#storage-size')!.value) !== -1) {
+            this.view.generateElement(document.querySelector<HTMLSelectElement>('#storage-model')!, hdd.Model)
           }
         }
-      } else if (config.storageType?.value == 'ssd') {
+      } else if (document.querySelector<HTMLSelectElement>('#storage-type')?.value == 'ssd') {
         for (let ssd of ssdData!) {
-          if (config.storageBrand?.value === ssd.Brand && ssd.Model.indexOf(config.storageSize!.value) !== -1) {
-            this.view.generateElement(config.storageModel!, ssd.Model)
+          if (document.querySelector<HTMLSelectElement>('#storage-brand')?.value === ssd.Brand && ssd.Model.indexOf(document.querySelector<HTMLSelectElement>('#storage-size')!.value) !== -1) {
+            this.view.generateElement(document.querySelector<HTMLSelectElement>('#storage-model')!, ssd.Model)
           }
         }
       }
     })
 
-    config.storageModel?.addEventListener('change', () => {
-      if (config.storageType?.value == 'hdd') {
+    document.querySelector<HTMLSelectElement>('#storage-model')?.addEventListener('change', () => {
+      if (document.querySelector<HTMLSelectElement>('#storage-type')?.value == 'hdd') {
         for (let hdd of hddData!) {
-          if (hdd.Model.indexOf(config.storageModel!.value) !== -1) {
+          if (hdd.Model.indexOf(document.querySelector<HTMLSelectElement>('#storage-model')!.value) !== -1) {
             this.computer.setParts('storage', hdd)
           }
         }
-      } else if (config.storageType?.value == 'ssd') {
+      } else if (document.querySelector<HTMLSelectElement>('#storage-type')?.value == 'ssd') {
         for (let ssd of ssdData!) {
-          if (ssd.Model.indexOf(config.storageModel!.value) !== -1) {
+          if (ssd.Model.indexOf(document.querySelector<HTMLSelectElement>('#storage-model')!.value) !== -1) {
             this.computer.setParts('storage', ssd)
           }
         }
@@ -284,7 +313,7 @@ export default class Controller {
 
     // build computer
 
-    config.buildButton?.addEventListener('click', () => {
+    document.querySelector<HTMLButtonElement>('#build')?.addEventListener('click', () => {
       if (this.computer.checkAllParts()) {
         this.view.generateComputer(
           this.computer.getScoreOfUseForGame(),
