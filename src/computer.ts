@@ -38,28 +38,28 @@ export default class Computer {
    * @param {FetchDataType} data - fetchしたパーツのデータ
    * @returns {void}
    */
-  public setParts(parts: string, data: FetchDataType): void {
+  public setParts(parts: string, data: FetchDataType | null): void {
     switch (parts) {
       case 'cpu':
-        this.cpu.brand = data.Brand
-        this.cpu.model = data.Model
-        this.cpu.benchmark = data.Benchmark
+        this.cpu.brand = data ? data.Brand : data
+        this.cpu.model = data ? data.Model : data
+        this.cpu.benchmark = data ? data.Benchmark : data
         break
       case 'gpu':
-        this.gpu.brand = data.Brand
-        this.gpu.model = data.Model
-        this.gpu.benchmark = data.Benchmark
+        this.gpu.brand = data ? data.Brand : data
+        this.gpu.model = data ? data.Model : data
+        this.gpu.benchmark = data ? data.Benchmark : data
         break
       case 'ram':
-        this.ram.brand = data.Brand
-        this.ram.model = data.Model
-        this.ram.benchmark = data.Benchmark
+        this.ram.brand = data ? data.Brand : data
+        this.ram.model = data ? data.Model : data
+        this.ram.benchmark = data ? data.Benchmark : data
         break
       case 'storage':
-        this.storage.type = data.Type
-        this.storage.brand = data.Brand
-        this.storage.model = data.Model
-        this.storage.benchmark = data.Benchmark
+        this.storage.type = data ? data.Type : data
+        this.storage.brand = data ? data.Brand : data
+        this.storage.model = data ? data.Model : data
+        this.storage.benchmark = data ? data.Benchmark : data
     }
   }
 
