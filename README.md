@@ -1,17 +1,8 @@
-# コンピューターの組み立てアプリケーション
+# コンピュータの組み立てアプリケーション
 
-パーツを選んで「仮想のコンピュータ」を組み立て、その性能を評価し比較するアプリケーション。
+4つのパーツ(CPU / GPU / メモリ / ストレージ)の種類を選択し、「仮想のコンピュータ」を組み立て、その性能を評価し比較するアプリケーションです。
 
-このアプリケーションではパーツを選んで「仮想のコンピュータ」を組み立て、その性能を評価し、比較することが可能です。
-
-コンピュータを構成するパーツは全部で4種類。
-
-- CPU
-- GPU
-- メモリ
-- ストレージ
-
-各パーツの選択時には、ブランド、モデル、ストレージなどを入力します。 ブランドにはそのブランドが持っている情報をソートしてモデルに表示します。
+<a href="https://computer-builder-beta.vercel.app">アプリケーションを使用してみる</a>
 
 ## プロジェクトの目的
 
@@ -31,42 +22,12 @@ Recursionでは、`API`、`サーバー`についてその仕組みを理解し�
 ### Vercel
 
 ## 問題解決と工夫
-- MVCアーキテクチャではControllerでそれぞれのオブジェクトの操作を行いました。
-ModelとViewが互いに干渉することなく、安全なデータの受け渡しを行うように設計しました。
 
-### APIを使用して各パーツの情報を取得
+プロジェクトにおける具体的な課題や難点に対するアプローチや工夫、解決策を説明します。
 
-<table>
-  <tr>
-    <th>パーツ</th>
-    <th>リクエスト先</th>
-  </tr>
-  <tr>
-    <td>CPU</td>
-    <td>https://api.recursionist.io/builder/computers?type=cpu</td>
-  </tr>
-  <tr>
-    <td>GPU</td>
-    <td>https://api.recursionist.io/builder/computers?type=gpu</td>
-  </tr>
-  <tr>
-    <td>RAM</td>
-    <td>https://api.recursionist.io/builder/computers?type=ram</td>
-  </tr>
-  <tr>
-    <td>HDD</td>
-    <td>https://api.recursionist.io/builder/computers?type=hdd</td>
-  </tr>
-  <tr>
-    <td>SSD</td>
-    <td>https://api.recursionist.io/builder/computers?type=ssd</td>
-  </tr>
-</table>
-上記の各APIは上位100までのパーツ情報を保持しています。
+### （1）APIを使用して各パーツ情報の取得
 
-APIから取得したデータを取得することで、簡単に膨大なデータを取得することができました。
-
-APIからデータを取得する際、以下のように行いました。
+以下のように、`fetch`関数を使用して、非同期で`API`のエンドポイントに`GETリクエスト`を送信し、レスポンスとして取得した`JSON`データを、`json`メソッドを使用することで解析してデータを使用しました。
 
 例) cpuのデータ取得
 ```
@@ -79,42 +40,25 @@ const cpuData = fetch(url)
   })
 ```
 
-### MVC アーキテクチャ
+各パーツの選択肢によって、表示される次の選択肢が動的に変化する用になっていますが、最初はこれを選択肢が変化する度にデータを取得して表示していました。
 
-<table>
-  <tr>
-    <th>分類</th>
-    <th>クラス</th>
-  </tr>
-  <tr>
-    <td>Model</td>
-    <td>Computer</td>
-  </tr>
-  <tr>
-    <td>View</td>
-    <td>View</td>
-  </tr>
-  <tr>
-    <td>Controller</td>
-    <td>Controller</td>
-  </tr>
-</table>
+しかし、データ自体は変化することがないため、使い回すことが可能です。
 
-Controllerでmodelとviewのインスタンスを作成して、modelとviewの操作を行いました。
+そこで、取得したデータは、変数に格納しました。
 
-各要素が互いに影響しにくく、システムの保守性や生産性を向上させるために採用しました。
+格納したデータからソートや検索などを行うことで、余分なフェッチを削減しました。
 
-### OOP interfaceの拡張
+### （2）interfaceの拡張
 
 コンピュータが持っているデータはCPU, GPU, RAMは同一の型ですが、StorageのみHDDかSSDかを区別するためにtypeというデータをもっています。
 
-CPU, GPU, RAM
+CPU, GPU, RAMの場合）
 ```
 brand: brandName
 model: modelName
 ```
 
-Storage
+Storageの場合）
 ```
 type: storageType
 brand: brandName
@@ -136,16 +80,6 @@ interface Storage extends Parts {
 }
 ```
 
-これにより、データを安全に操作することができました。
-
-## 学びと成長
-    
-このプロジェクトを通して以下のような学びや成長がありました。
-
-- MVCアーキテクチャを用いた設計を行えるようになった
-- OOPの型の指定がスムーズに行えるようになった
-- APIからデータを取得して、処理を実装できるようになった
-
 ## コードの品質と構造
     
 コードの品質についての考え方や重要視する点、プロジェクトのディレクトリ構造やコーディングスタイルについて説明します。
@@ -156,7 +90,7 @@ interface Storage extends Parts {
 
 コーディングは静的なViewの実装から取り掛かり、Model、Controller、動的なViewの実装という順番で進めていきました。
 
-ディレクトリは以下のようになりました。
+ディレクトリや各ディレクトリの役割は以下のようにしました。
 
 - config : 設定ファイル
 - interface : オブジェクトの型の指定
@@ -164,11 +98,17 @@ interface Storage extends Parts {
 - controller : modelとviewの操作を定義
 - view : 画面に表示するdomを定義
 
+## 学びと成長
+    
+このプロジェクトを通して以下のような学びや成長がありました。
+
+- MVCアーキテクチャを用いた設計を行えるようになった
+- OOPの型の指定がスムーズに行えるようになった
+- APIからデータを取得して、処理を実装できるようになった
+
 ## 今後の展望
     
-このプロジェクトを通してAPIの操作には慣れることができました。
-
-しかし、TypeScriptのみの環境下で使用されるケースは少ないと考えており、今後はReactやNext.jsなどのモダンなライブラリやフレームワークの環境下でのAPIの使用にも慣れていきたいです。
+このプロジェクトのように、TypeScriptのみの環境下でAPIが使用されるケースは少ないと考えており、今後はReactやNext.jsなどのモダンなライブラリやフレームワークの環境下でのAPIの使用にも慣れていきたいです。
 
 ## 参考文献
 
