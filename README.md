@@ -1,5 +1,7 @@
 # コンピュータの組み立てアプリケーション
 
+![コンピュータービルダー](https://github.com/daxchx/computer-builder/assets/149696768/ffecc068-887d-444b-9dcb-92b5e757329b)
+
 4つのパーツ(CPU / GPU / メモリ / ストレージ)の種類を選択し、「仮想のコンピュータ」を組み立て、その性能を評価し比較するアプリケーションです。
 
 <a href="https://computer-builder-beta.vercel.app">アプリケーションを使用してみる</a>
