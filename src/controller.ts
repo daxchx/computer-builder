@@ -12,21 +12,6 @@ export default class Controller {
     this.view = new View()
   }
 
-  public loading(): void {
-    this.view.renderLoading()
-    setTimeout(() => {
-      const loading = document.querySelector<HTMLDivElement>('#loading')
-      loading?.classList.remove('scale-x-0')
-      loading?.classList.add('scale-x-100')
-    }, 500)
-
-    setTimeout(() => {
-      this.init()
-    }, 2500)
-  }
-
-  next() {}
-
   public init(): void {
     this.view.renderInit()
     let cpuData: FetchDataType[] | null = null
@@ -120,15 +105,6 @@ export default class Controller {
 
       if (document.querySelector<HTMLSelectElement>('#cpu-model')!.value == '-') {
         this.computer.setParts('cpu', null)
-        console.log('null')
-      }
-
-      if (document.querySelector<HTMLSelectElement>('#cpu-model')?.value !== '-') {
-        document.querySelector<HTMLSelectElement>('#cpu-brand')?.classList.remove('font-normal')
-        document.querySelector<HTMLSelectElement>('#cpu-brand')?.classList.add('font-bold')
-      } else {
-        document.querySelector<HTMLSelectElement>('#cpu-brand')?.classList.remove('font-bold')
-        document.querySelector<HTMLSelectElement>('#cpu-brand')?.classList.add('font-normal')
       }
     })
 
@@ -323,10 +299,6 @@ export default class Controller {
           this.computer.getRam(),
           this.computer.getStorage()
         )
-        window.scroll({
-          top: 0,
-          behavior: 'smooth',
-        })
       } else alert('入力できていない項目があります。')
     })
   }
