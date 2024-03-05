@@ -15,6 +15,35 @@ Recursionでは、`API`、`サーバー`についてその仕組みを理解し�
 このプロジェクトでは以下の技術スタックを採用しました。
 
 ### OOP（オブジェクト指向プログラミング）
+
+OOPを採用した理由は以下のメリットがあったためです。
+
+- データとそれに関連する機能がまとまっているため、変更を行う際に影響範囲を把握しやすい
+- 現実世界の概念に基づいてコードを構造化できるため、理解しやすい
+- コードの再利用性や保守性が向上するため、開発時間を削減できる
+
+今回はコンピュータを構造化するために以下のように行いました。
+
+```mermaid
+
+classDiagram
+    class Computer{
+      -Parts cpu
+      -Parts gpu
+      -Parts ram
+      -StorageDataType storage
+      +Void getCpu(parts: String, data: FetchDataType | null)
+      +Boolean getGpu()
+      +Parts getRam()
+      +Parts setParts()
+      +Parts getStorage()
+      +Number checkAllParts()
+      +Number getScoreOfUserForGame()
+      +Number getScoreOfUserForWork()
+    }
+
+```
+
 ### MVCアーキテクチャ
 ### TypeScript
 ### Tailwind CSS
